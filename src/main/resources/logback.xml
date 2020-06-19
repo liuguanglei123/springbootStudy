@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+  <substitutionProperty name="LOG_HOME_DUBBO" value="C:\\Users\\liu\\Desktop\\java\\test\\logs"/>
+  <timestamp key="byDate" datePattern="yyyyMMdd"/>
+  <property name="LOG_HOME" value="C:\\Users\\liu\\Desktop\\java\\test\\logs"/>
+  <property name="APP_NAME" value="testSpringBoot"/>
+  <property name="LOG_LEVEL" value="DEBUG"/>
+
+    <appender name="serviceRolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${APP_NAME}-${logger.level}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${APP_NAME}.%d{yyyy-MM-dd}.%i-DUBBO.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>100MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.example" level="${LOG_LEVEL}">
+        <appender-ref ref="serviceRolling"/>
+    </logger>
+</configuration>
